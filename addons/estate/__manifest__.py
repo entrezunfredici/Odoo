@@ -1,5 +1,5 @@
 {
-    'name': "estate",
+    'name': "Real_Estate",
     'version': '16.0',
     'author': "Macabiau Frédéric",
     'category': 'estate',
@@ -7,10 +7,6 @@
     Description text
     """,
     "depends": ["base"],  # dependencies
-    "data": [
-
-    ],
     "application": True,  # This line says the module is an App, and not a module
     "installable": True,
-    'license': 'LGPL-3',
 }
