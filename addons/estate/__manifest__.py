@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#Real Estate Odoo module created by Macabiau Frederic
+#Module description
 {
     'name': "Real_Estate",
     'version': '16.0',
