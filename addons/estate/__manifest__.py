@@ -9,7 +9,10 @@
     'description': """
     Description text
     """,
-    "depends": ["base"],  # dependencies
+    'depends': ['base'],  # dependencies
+    'data': [
+        'security/ir.model.access.csv'
+    ],
     "application": True,  # This line says the module is an App, and not a module
     "installable": True,
 }
