@@ -2,17 +2,23 @@
 #Real Estate Odoo module created by Macabiau Frederic
 #Module description
 {
-    'name': "Real_Estate",
-    'version': '16.0',
+    "name": "Real Estate",
     'author': "Macabiau Frédéric",
     'category': 'estate',
+    'version': '16.0',
     'description': """
-    Description text
+    This is the estate app
     """,
-    'depends': ['base'],  # dependencies
-    'data': [
-        'security/ir.model.access.csv'
-    ],
+    "depends": [
+        "base",
+        "web",
+    ],#dependencies
+    "data": [
+        "security/ir.model.access.csv",
+        "views/estate_property_views.xml",
+        "views/estate_menus.xml",
+    ],#data files
     "application": True,  # This line says the module is an App, and not a module
     "installable": True,
+    "license": "LGPL-3",
 }
