@@ -3,17 +3,19 @@
 #Module database model
 from odoo import fields, models
 
+
 class Property(models.Model):
     _name="estate.property"
     _description="Property model, contain informations about estate properties"
+    fields.active=False
     #basic fields on the table
     name=fields.Char("name", required=True) #required fields
     description=fields.Text("description")
     postcode=fields.Char("postcode")
-    date_availability=fields.Date("Available From")
+    date_availability=fields.Date("Available From", copy=False, default=lambda self: fields.Datetime.today())
     expected_price=fields.Float("price", required=True) #required fields
-    selling_price=fields.Float("selling price")
-    bedrooms=fields.Integer("bedrooms")
+    selling_price=fields.Float("selling price", copy=False, readonly=True)
+    bedrooms=fields.Integer("bedrooms", default=2)
     living_area=fields.Integer("living area")
     facades=fields.Integer("facades")
     garage=fields.Boolean("garage")
@@ -28,4 +30,15 @@ class Property(models.Model):
             ('W','West')
         ],
         help="Type is used to choose garden orientation"
+    )
+    #state of estate property
+    state=fields.Selection(
+        string='state',
+        selection=[
+            ('New','New'),
+            ('Offer Received','Received'),
+            ('Offer Accepted','Accepted'),
+            ('Sold and canceled','Sold')
+        ],
+        default='New'
     )
