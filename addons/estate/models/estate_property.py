@@ -3,11 +3,10 @@
 #Module database model
 from odoo import fields, models
 
-
 class Property(models.Model):
     _name="estate.property"
     _description="Property model, contain informations about estate properties"
-    fields.active=False
+    active = fields.Boolean("Active", default=False)
     #basic fields on the table
     name=fields.Char("name", required=True) #required fields
     description=fields.Text("description")
