@@ -116,7 +116,7 @@
                 <field name="facades"/>
                 <field name="garden_area"/>
                 <filter string="Available" name="available" domain="[('state,'in','New')]"/>
-            </search>-->
+            </search>
         </field>
-    </record>
+    </record>-->
 </odoo>
