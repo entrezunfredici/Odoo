@@ -86,24 +86,8 @@
             </form>
         </field>
     </record>
-    <!--lists-->
-    <record id="estate_property_view_list" model="ir.ui.view">
-        <field name="name">estate.property.view.list</field>
-        <field name="model">estate.property</field>
-        <field name="arch" type="xml">
-            <search string="properties">
-                <field name="name"/>
-                <field name="postcode"/>
-                <field name="expected_price"/>
-                <field name="bedrooms"/>
-                <field name="living_area"/>
-                <field name="facades"/>
-                <field name="garden_area"/>
-            </search>
-        </field>
-    </record>
-    <!--filtress-->
-    <!--<record id="estate_property_view_search" model="ir.ui.view">
+    <!--search-->
+    <record id="estate_property_view_search" model="ir.ui.view">
         <field name="name">estate.property.view.search</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
@@ -115,8 +99,9 @@
                 <field name="living_area"/>
                 <field name="facades"/>
                 <field name="garden_area"/>
-                <filter string="Available" name="available" domain="[('state,'in','New')]"/>
+                <!--filtress-->
+                <!--<filter string="Available" name="available" domain="[('state,'in','New')]"/>-->
             </search>
         </field>
-    </record>-->
+    </record>
 </odoo>
