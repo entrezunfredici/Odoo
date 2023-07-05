@@ -41,3 +41,6 @@ class Property(models.Model):
         ],
         default='New'
     )
+    user_id = fields.Many2one('res.users', string='user')
+    partner_id=fields.Many2one('res.partner', string="partner")
+    proprty_type_id=fields.Many2one('estate.property.type', string="property.type")

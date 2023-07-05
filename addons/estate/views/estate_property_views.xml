@@ -42,10 +42,13 @@
                             <field name="name"/>
                         </group>
                         <group>
-                            <field name="postcode"/>
+                            <field name="proprty_type_id" string="Property Type"/>
                         </group>
                         <group>
                             <field name="expected_price"/>
+                        </group>
+                        <group>
+                            <field name="postcode"/>
                         </group>
                         <group>
                             <field name="date_availability"/>
@@ -81,6 +84,14 @@
                                 <field name="garden_orientation"/>
                             </group>
                         </page>
+                        <page string="other info">
+                            <group>
+                                <field name="user_id" string="Salesman"/>
+                            </group>
+                            <group>
+                                <field name="partner_id" string="Buyer"/>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
             </form>
@@ -99,7 +110,7 @@
                 <field name="living_area"  filter_domain="[('living_area', '>=', self)]"/>
                 <field name="facades"/>
                 <field name="garden_area"/>
-                <!--filtress-->
+                <!--filtres-->
                 <filter string="Available" name="available" domain="[('state', 'in', 'New')]"/>
             </search>
         </field>
