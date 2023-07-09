@@ -3,7 +3,7 @@
 <odoo>
     <!--menu-->
     <record id="estate_property_type_action" model="ir.actions.act_window">
-        <field name="name">Property Types</field>
+        <field name="name">Property Type</field>
         <field name="res_model">estate.property.type</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
@@ -30,7 +30,9 @@
             <form string="properties">
                 <sheet>
                     <group>
-                        <field name="name"/>
+                        <group>
+                            <field name="name"/>
+                        </group>
                     </group>
                 </sheet>
             </form>

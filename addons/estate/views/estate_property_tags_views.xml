@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--created by Macabiau Frederic-->
+<!--property tags-->
+<odoo>
+    <!--menu-->
+    <record id="estate_property_tags_action" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">estate.property.tags</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a property tag
+            </p>
+        </field>
+    </record>
+    <!--lists-->
+    <record id="estate_property_tags_view_tree" model="ir.ui.view">
+        <field name="name">estate.property.tags.view.tree</field>
+        <field name="model">estate.property.tags</field>
+        <field name="arch" type="xml">
+            <tree name="property tags">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <!--form-->
+    <record id="estate_property_tags_view_form" model="ir.ui.view">
+        <field name="name">estate.property.tags.view.form</field>
+        <field name="model">estate.property.tags</field>
+        <field name="arch" type="xml">
+            <form string="properties tags">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--search-->
+    <record id="estate_property_tags_view_form" model="ir.ui.view">
+        <field name="name">estate.property.tags.view.search</field>
+        <field name="model">estate.property.tags</field>
+        <field name="arch" type="xml">
+            <search string="estate property">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+</odoo>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--creater by Macabiau Frederic-->
 <odoo>
     <!--menu principal-->
     <record id="estate_property_action" model="ir.actions.act_window">
@@ -38,11 +39,10 @@
             <form string="properties">
                 <sheet>
                     <group>
+                        <field name="name"/>
+                        <field name="property_tags_ids" widget="many2many_tags"/>
                         <group>
-                            <field name="name"/>
-                        </group>
-                        <group>
-                            <field name="proprty_type_id" string="Property Type"/>
+                            <field name="property_type_id" string="Property Type"/>
                         </group>
                         <group>
                             <field name="expected_price"/>
