@@ -44,4 +44,5 @@ class Property(models.Model):
     user_id = fields.Many2one('res.users', string='user')
     partner_id=fields.Many2one('res.partner', string="partner")
     property_type_id=fields.Many2one('estate.property.type', string="property.type")
-    property_tags_ids=fields.Many2many("estate.property.tags", string="property.type")
+    property_tags_ids=fields.Many2many("estate.property.tags", string="property.tags")
+    offer_ids=fields.One2many("estate.property.offer", "property_id", string="property offer")
