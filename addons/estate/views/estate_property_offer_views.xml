@@ -10,6 +10,10 @@
             <tree name="property offer">
                 <field name="price"/>
                 <field name="partner_id"/>
+                <!--field name="date_deadline"/>
+                <field name="date_validity"/-->
+                <button name="estate_property_offer_action_Accept" type="object" title="Accept" icon="fa-check"/>
+                <button name="estate_property_offer_action_Refuse" type="object" title="Refuse" icon="fa-times"/>
                 <field name="status"/>
             </tree>
         </field>
@@ -25,7 +29,7 @@
                         <group>
                             <field name="price"/>
                             <field name="partner_id"/>
-                            <field name="status"/>
+                            <field name="validity"/>
                         </group>
                     </group>
                 </sheet>
