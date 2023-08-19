@@ -8,7 +8,7 @@ from dateutil.relativedelta import relativedelta
 class Property(models.Model):
     _name="estate.property"
     _description="Property model, contain informations about estate properties"
-    active = fields.Boolean("Active", default=False)
+    active = fields.Boolean("Active", default=True)
     #basic fields on the table
     name=fields.Char("name", required=True) #required fields
     description=fields.Text("description")
@@ -44,6 +44,7 @@ class Property(models.Model):
         ],
         default='New'
     )
+    #linked fields
     user_id = fields.Many2one('res.users', string='user')
     partner_id=fields.Many2one('res.partner', string="partner")
     property_type_id=fields.Many2one('estate.property.type', string="property.type")

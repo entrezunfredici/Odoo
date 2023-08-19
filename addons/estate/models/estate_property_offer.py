@@ -16,6 +16,7 @@ class Property_offer(models.Model):
             ('Refused','Refused')
         ]
     )
+    #linked fields
     partner_id=fields.Many2one('res.partner', string='partner', required='true')
     property_id=fields.Many2one('estate.property', string='property', required='true')
     validity=fields.Integer("validity", default=7)
