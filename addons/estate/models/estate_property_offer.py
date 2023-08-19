@@ -3,6 +3,7 @@
 #Module database model
 from odoo import api, fields, models
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import ValidationError
 
 class Property_offer(models.Model):
     _name="estate.property.offer"
@@ -39,3 +40,12 @@ class Property_offer(models.Model):
     def estate_property_offer_action_Refuse(self):
         for offer in self:
             offer.status="Refused"
+    #constraints
+    _sql_constraints=[
+        ('check_estate_property_offer_price','CHECK(price>0)','The offer price must be stricktly posivite')
+    ]
+    @api.constrains('price')
+    def check_Price(self):
+        for offer in self:
+            if offer.price<(0.9*offer.property_id.expected_price):
+                raise ValidationError("The price offer cannot be lower ninety percent of the expected price")

@@ -85,3 +85,9 @@ class Property(models.Model):
             else:
                 estate_property.state="Sold"
                 return True
+    #constraints
+    _sql_constraints=[
+        ('check_estate_property_expected_price', 'CHECK(expected_price>0)','The expected price should be stricktly positive'),
+        ('check_estate_property_selling_price', 'CHECK(selling_price>=0)','The selling price should be positive'),
+        ('check_estate_property_property_tags_name','UNIQUE(name)','the tag name can be unique')
+    ]
