@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 class Property_offer(models.Model):
     _name="estate.property.offer"
     _description="property offers, contains estate offers"
+    _order="price desc" #order in lists
     price=fields.Float("price")
     status=fields.Selection(
         string='status',
@@ -21,23 +22,23 @@ class Property_offer(models.Model):
     property_id=fields.Many2one('estate.property', string='property', required='true')
     validity=fields.Integer("validity", default=7)
     #computed variables
-    #date_deadline=fields.Date(compute="_compute_create_date", inverse="_inverse_date_deadline")
-    #date_validity=fields.Date()
-    #compute functions
-    #@api.depends("")
-    #def _compute_date_deadline(self):
-    #    for offer in self:
-    #        offer.date_deadline=fields.Datetime.today()#+relativedelta(mounth=3)
-    #def _inverse_date_deadline(self):
-    #    for offer in self:
-    #        offer.date_validity=relativedelta(days=7)
-            #offer.date_validity=offer.date_deadline-fields.Datetime.today()
+    date_deadline=fields.Date(compute="_compute_date_deadline", inverse="_inverse_date_deadline")
+    #computed functions
+    @api.depends("create_date", "validity")
+    def _compute_date_deadline(self):
+        for offer in self:
+            date=offer.create_date.date() if offer.create_date else fields.Date.today()
+            offer.date_deadline=date+relativedelta(days=offer.validity)
+    def _inverse_date_deadline(self):
+        for offer in self:
+            date=offer.create_date.date() if offer.create_date else fields.Date.today()
+            offer.validity=(offer.date_deadline-date).days
     #button functions
     def estate_property_offer_action_Accept(self):
         for offer in self:
             offer.status="Accepted"
             offer.property_id.selling_price=offer.price
-            offer.property_id.state="Sold"
+            offer.property_id.state="Offer Accepted"
     def estate_property_offer_action_Refuse(self):
         for offer in self:
             offer.status="Refused"
@@ -50,3 +51,4 @@ class Property_offer(models.Model):
         for offer in self:
             if offer.price<(0.9*offer.property_id.expected_price):
                 raise ValidationError("The price offer cannot be lower ninety percent of the expected price")
+        else: offer.property_id.state="Offer Received"

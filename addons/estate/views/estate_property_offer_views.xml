@@ -7,13 +7,13 @@
         <field name="name">estate.property.offer.views.tree</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree name="property offer">
+            <tree name="property offer" editable="bottom">
                 <field name="price"/>
                 <field name="partner_id"/>
-                <!--field name="date_deadline"/>
-                <field name="date_validity"/-->
-                <button name="estate_property_offer_action_Accept" type="object" title="Accept" icon="fa-check"/>
-                <button name="estate_property_offer_action_Refuse" type="object" title="Refuse" icon="fa-times"/>
+                <field name="date_deadline"/>
+                <field name="validity"/>
+                <button name="estate_property_offer_action_Accept" type="object" title="Accept" icon="fa-check" attrs="{'invisible':[('status','!=',False)]}"/>
+                <button name="estate_property_offer_action_Refuse" type="object" title="Refuse" icon="fa-times" attrs="{'invisible':[('status','!=',False)]}"/>
                 <field name="status"/>
             </tree>
         </field>
@@ -23,7 +23,7 @@
         <field name="name">estate.property.offer.view.form</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <form string="properties offer">
+            <form>
                 <sheet>
                     <group>
                         <group>

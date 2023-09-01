@@ -22,12 +22,14 @@
         <field name="arch" type="xml">
             <tree string="properties">
                 <field name="name"/>
+                <field name="property_type_id" string="Property Type"/>
                 <field name="postcode"/>
+                <field name="property_tags_ids" widget="many2many_tags" string="Tags" options='{"color_field":"Color"}'/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
-                <field name="date_availability"/>
+                <field name="date_availability" optional="hide"/>
             </tree>
         </field>
     </record>
@@ -38,20 +40,18 @@
         <field name="arch" type="xml">
             <form string="properties">
                 <header>
-                    <button name="estate_property_action_cancel" type="object" string="Cancel"/>
-                    <button name="estate_property_action_sold" type="object" string="Sold"/>
+                    <button name="estate_property_action_sold" type="object" string="Sold" states="New, Offer Received"/>
+                    <button name="estate_property_action_sold" type="object" string="Sold" states="Offer Accepted" class="oe_highlight"/>
+                    <button name="estate_property_action_cancel" type="object" string="Cancel" states="New, Offer Received, Offer Accepted"/>
+                    <field name="state" type="statusbar" statusbar_visible="New, Offer Received, Offer Acceped,Sold"/>
                 </header>
                 <sheet>
                     <group>
                         <field name="name"/>
+                        <field name="property_tags_ids" widget="many2many_tags" options='{"color_field":"Color"}'/> <!--option attribut set field color with color interger variable--> 
                         <group>
-                            <field name="state" string="status"/>
+                            <field name="property_type_id" string="Property Type"/> <!--options='{"rights": "readonly"}'-->
                         </group>
-                        <field name="property_tags_ids" widget="many2many_tags"/>
-                        <group>
-                            <field name="property_type_id" string="Property Type"/>
-                        </group>
-                        
                         <group>
                             <field name="postcode"/>
                         </group>
@@ -67,7 +67,6 @@
                         <group>
                             <field name="selling_price"/>
                         </group>
-                        
                     </group>
                     <notebook>
                         <page string="Description">
@@ -90,10 +89,10 @@
                                 <field name="garden"/>
                             </group>
                             <group>
-                                <field name="garden_area"/>
+                                <field name="garden_area" attrs="{'invisible':[('garden','=',False)]}"/>
                             </group>
                             <group>
-                                <field name="garden_orientation"/>
+                                <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                             </group>
                             <group>
                                 <field name="total_area"/>
@@ -101,7 +100,7 @@
                         </page>
                         <page string="Offers">
                             <group>
-                                <field name="offer_ids"/>
+                                <field name="offer_ids" attrs="{'readonly': [('state', 'in', ('Offer Accepted', 'Sold', 'Canceled'))]}"/>
                             </group>
                         </page>
                         <page string="other info">

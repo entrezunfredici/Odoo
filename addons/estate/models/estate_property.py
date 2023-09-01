@@ -8,6 +8,7 @@ from dateutil.relativedelta import relativedelta
 class Property(models.Model):
     _name="estate.property"
     _description="Property model, contain informations about estate properties"
+    _order="id desc"
     active = fields.Boolean("Active", default=True)
     #basic fields on the table
     name=fields.Char("name", required=True) #required fields
@@ -37,8 +38,8 @@ class Property(models.Model):
         string='state',
         selection=[
             ('New','New'),
-            ('Offer Received','Received'),
-            ('Offer Accepted','Accepted'),
+            ('Offer Received','Offer Received'),
+            ('Offer Accepted','Offer Accepted'),
             ('Sold','Sold'),
             ('Canceled','Canceled')
         ],
@@ -47,12 +48,12 @@ class Property(models.Model):
     #linked fields
     user_id = fields.Many2one('res.users', string='user')
     partner_id=fields.Many2one('res.partner', string="partner")
-    property_type_id=fields.Many2one('estate.property.type', string="property.type")
-    property_tags_ids=fields.Many2many("estate.property.tags", string="property.tags")
-    offer_ids=fields.One2many("estate.property.offer", "property_id", string="property offer")
+    property_type_id=fields.Many2one('estate.property.type', string="property.type")#type of this property
+    property_tags_ids=fields.Many2many("estate.property.tags", string="property.tags")#tags list of this property
+    offer_ids=fields.One2many("estate.property.offer", "property_id", string="property offer")#offers list of this property
     #computed variable
     total_area=fields.Float(compute="_compute_total_area")
-    best_price=fields.Float(compute="_compute_best_price")
+    best_price=fields.Float(compute="_compute_best_price")#more expensive offer
     #compute functions
     @api.depends("living_area","garden_area")
     def _compute_total_area(self):
