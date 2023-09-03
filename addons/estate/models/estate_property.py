@@ -87,6 +87,13 @@ class Property(models.Model):
             else:
                 estate_property.state="Sold"
                 return True
+    #CRUD functions
+    def ondelete(self):
+        for estate_property in self:
+            if(estate_property.state=="New" | estate_property.state=="Canceled"):
+                return super.ondelete()
+            else: raise UserError('this is not a new or Canceled property')
+        
     #constraints
     _sql_constraints=[
         ('check_estate_property_expected_price', 'CHECK(expected_price>0)','The expected price should be stricktly positive'),

@@ -37,6 +37,7 @@
                     </group>
                     <notebook>
                         <page string="Properties">
+                            <field name="property_count"/>
                             <field name="property_ids">
                                 <tree>
                                     <field name="name"/>
@@ -44,6 +45,12 @@
                                     <field name="state"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page string="Offers">
+                            <field name="offer_count"/>
+                            <group>
+                                <field name="offer_ids"/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>

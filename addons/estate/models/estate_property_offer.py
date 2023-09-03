@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 from odoo.exceptions import ValidationError
 
 class Property_offer(models.Model):
+    #"fields
     _name="estate.property.offer"
     _description="property offers, contains estate offers"
     _order="price desc" #order in lists
@@ -17,11 +18,12 @@ class Property_offer(models.Model):
             ('Refused','Refused')
         ]
     )
+    validity=fields.Integer("validity", default=7)
     #linked fields
     partner_id=fields.Many2one('res.partner', string='partner', required='true')
     property_id=fields.Many2one('estate.property', string='property', required='true')
-    validity=fields.Integer("validity", default=7)
-    #computed variables
+    property_type_id=fields.Many2one('estate.property.type', string='property type') #12.3. status buttons; property type
+    #computed fields
     date_deadline=fields.Date(compute="_compute_date_deadline", inverse="_inverse_date_deadline")
     #computed functions
     @api.depends("create_date", "validity")
@@ -51,4 +53,6 @@ class Property_offer(models.Model):
         for offer in self:
             if offer.price<(0.9*offer.property_id.expected_price):
                 raise ValidationError("The price offer cannot be lower ninety percent of the expected price")
-        else: offer.property_id.state="Offer Received"
+            elif offer.price<max(offer.property_id.offer_ids.mapped("price")):
+                raise ValidationError("The price offer can be higher than "+str(max(offer.property_id.offer_ids.mapped("price"))))
+            else: offer.property_id.state="Offer Received"
