@@ -10,7 +10,6 @@ class estate_property(models.Model):
         paid confirm attendees. Attendees should indeed not be confirmed before
         full payment. """
         price=int(self.selling_price*1.06+100.00)
-        name=self.partner_id
         self.env["account.move"].create(
             {
                 "name":"account.move",
