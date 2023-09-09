@@ -2,28 +2,7 @@
 <!--created by Macabiau Frederic-->
 <!--property tags-->
 <odoo>
-    <!--menu-->
-    <record id="estate_property_tags_action" model="ir.actions.act_window">
-        <field name="name">Property Tags</field>
-        <field name="res_model">estate.property.tags</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a property tag
-            </p>
-        </field>
-    </record>
-    <!--lists-->
-    <record id="estate_property_tags_view_tree" model="ir.ui.view">
-        <field name="name">estate.property.tags.view.tree</field>
-        <field name="model">estate.property.tags</field>
-        <field name="arch" type="xml">
-            <tree name="property tags" editable="bottom">
-                <field name="name"/>
-            </tree>
-        </field>
-    </record>
-    <!--form-->
+    <!--views-->
     <record id="estate_property_tags_view_form" model="ir.ui.view">
         <field name="name">estate.property.tags.view.form</field>
         <field name="model">estate.property.tags</field>
@@ -39,8 +18,18 @@
             </form>
         </field>
     </record>
-    <!--search-->
-    <record id="estate_property_tags_view_form" model="ir.ui.view">
+    
+    <record id="estate_property_tags_view_tree" model="ir.ui.view">
+        <field name="name">estate.property.tags.view.tree</field>
+        <field name="model">estate.property.tags</field>
+        <field name="arch" type="xml">
+            <tree name="property tags" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="estate_property_tags_view_search" model="ir.ui.view">
         <field name="name">estate.property.tags.view.search</field>
         <field name="model">estate.property.tags</field>
         <field name="arch" type="xml">
@@ -49,4 +38,20 @@
             </search>
         </field>
     </record>
+
+    <!--actions-->
+    <record id="estate_property_tags_action" model="ir.actions.act_window">
+        <field name="name">Estate Property Tags Main Action</field>
+        <field name="res_model">estate.property.tags</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a property tag
+            </p>
+        </field>
+    </record>
+    
+
+    <!--search-->
+    
 </odoo>

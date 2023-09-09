@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
 #Real Estate Odoo module created by Macabiau Frederic
-#Module database model
+
+# 1 : import of python lib
+from dateutil.relativedelta import relativedelta
+# 2 : imports of odoo
 from odoo import api, fields, models
 from odoo.exceptions import UserError
-from dateutil.relativedelta import relativedelta
+
 
 class Property(models.Model):
+    #private attributes
     _name="estate.property"
     _description="Property model, contain informations about estate properties"
     _order="id desc"
+
+    #fields declaration
     active = fields.Boolean("Active", default=True)
-    #basic fields on the table
     name=fields.Char("name", required=True) #required fields
     description=fields.Text("description")
     postcode=fields.Char("postcode")
-    date_availability=fields.Date("Available From", copy=False, default=lambda self: (fields.Datetime.today()))
+    date_availability=fields.Date("Available From", copy=False, default=(fields.Date.today()+relativedelta(months=3)))
     expected_price=fields.Float("price", required=True) #required fields
     selling_price=fields.Float("selling price", copy=False, readonly=True)
     bedrooms=fields.Integer("bedrooms", default=2)
@@ -33,7 +38,6 @@ class Property(models.Model):
         ],
         help="Type is used to choose garden orientation"
     )
-    #state of estate property
     state=fields.Selection(
         string='state',
         selection=[
@@ -44,17 +48,16 @@ class Property(models.Model):
             ('Canceled','Canceled')
         ],
         default='New'
-    )
-    #linked fields
+    )#state of estate property
     user_id = fields.Many2one('res.users', string='user')
     partner_id=fields.Many2one('res.partner', string="partner")
     property_type_id=fields.Many2one('estate.property.type', string="property.type")#type of this property
     property_tags_ids=fields.Many2many("estate.property.tags", string="property.tags")#tags list of this property
     offer_ids=fields.One2many("estate.property.offer", "property_id", string="property offer")#offers list of this property
-    #computed variable
     total_area=fields.Float(compute="_compute_total_area")
     best_price=fields.Float(compute="_compute_best_price")#more expensive offer
-    #compute functions
+    
+    #compute and search functions
     @api.depends("living_area","garden_area")
     def _compute_total_area(self):
         for estate_property in self:
@@ -63,7 +66,13 @@ class Property(models.Model):
     def _compute_best_price(self):
         for estate_property in self:
             estate_property.best_price=max(estate_property.offer_ids.mapped("price")) if estate_property.offer_ids else 0.0
-    #onchange functions
+    
+    #constraints and onchanges
+    _sql_constraints=[
+        ('check_estate_property_expected_price', 'CHECK(expected_price>0)','The expected price should be stricktly positive'),
+        ('check_estate_property_selling_price', 'CHECK(selling_price>=0)','The selling price should be positive'),
+        ('check_estate_property_property_tags_name','UNIQUE(name)','the tag name can be unique')
+    ]
     @api.onchange("garden")
     def _onchange_garden(self):
         if self.garden:
@@ -72,7 +81,15 @@ class Property(models.Model):
         else:
             self.garden_area=0
             self.garden_orientation=False
-    #buttons functions
+    
+    #CRUD methods
+    def ondelete(self):
+        for estate_property in self:
+            if(estate_property.state=="New" | estate_property.state=="Canceled"):
+                return super.ondelete()
+            else: raise UserError('this is not a new or Canceled property')
+    
+    #action methods
     def estate_property_action_cancel(self):
         for estate_property in self:
             if(estate_property.state=="Sold"):
@@ -87,16 +104,3 @@ class Property(models.Model):
             else:
                 estate_property.state="Sold"
                 return True
-    #CRUD functions
-    def ondelete(self):
-        for estate_property in self:
-            if(estate_property.state=="New" | estate_property.state=="Canceled"):
-                return super.ondelete()
-            else: raise UserError('this is not a new or Canceled property')
-        
-    #constraints
-    _sql_constraints=[
-        ('check_estate_property_expected_price', 'CHECK(expected_price>0)','The expected price should be stricktly positive'),
-        ('check_estate_property_selling_price', 'CHECK(selling_price>=0)','The selling price should be positive'),
-        ('check_estate_property_property_tags_name','UNIQUE(name)','the tag name can be unique')
-    ]

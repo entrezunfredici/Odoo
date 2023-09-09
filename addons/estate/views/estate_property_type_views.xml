@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--property_type-->
 <odoo>
-    <!--menu-->
-    <record id="estate_property_type_action" model="ir.actions.act_window">
-        <field name="name">Property Type</field>
-        <field name="res_model">estate.property.type</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a property type
-            </p>
-        </field>
-    </record>
-    <!--lists-->
-    <record id="estate_property_type_view_tree" model="ir.ui.view">
-        <field name="name">estate.property.type.view.tree</field>
-        <field name="model">estate.property.type</field>
-        <field name="arch" type="xml">
-            <tree name="property types">
-                <field name="sequence" widget="handle"/>
-                <field name="name"/>
-            </tree>
-        </field>
-    </record>
-    <!--form-->
+    <!--views-->
     <record id="estate_property_type_view_form" model="ir.ui.view">
         <field name="name">estate.property.type.view.form</field>
         <field name="model">estate.property.type</field>
@@ -57,7 +35,18 @@
             </form>
         </field>
     </record>
-    <!--search-->
+
+    <record id="estate_property_type_view_tree" model="ir.ui.view">
+        <field name="name">estate.property.type.view.tree</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree name="property types">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="estate_property_type_view_search" model="ir.ui.view">
         <field name="name">estate.property.type.view.search</field>
         <field name="model">estate.property.type</field>
@@ -65,6 +54,18 @@
             <search string="estate property">
                 <field name="name"/>
             </search>
+        </field>
+    </record>
+
+    <!--actions-->
+    <record id="estate_property_type_action" model="ir.actions.act_window">
+        <field name="name">Estate Property Type Main Action</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a property type
+            </p>
         </field>
     </record>
 </odoo>

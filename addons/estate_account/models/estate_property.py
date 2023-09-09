@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 #Estate_account Odoo module created by Macabiau Frederic
+
+# 1 : imports of odoo
 from odoo import models, fields, Command
 
 class estate_property(models.Model):
+    #private attributes
     _inherit="estate.property"
+    #action methods
     def estate_property_action_sold(self):
         account_ids=fields.Many2one('account.move')
         """ When an invoice linked to a sales order selling registrations is
